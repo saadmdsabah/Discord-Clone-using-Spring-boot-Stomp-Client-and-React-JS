@@ -3,6 +3,7 @@ version: "3.8"
 services:
   app:
     build: ./chat-application-backend
+    image: saadsabahuddin/discord-clone-backend:latest
     container_name: springboot-app
     ports:
       - 8080:8080
@@ -27,6 +28,7 @@ services:
   frontend:
     build: ./chat-application-frontend
     container_name: react-app
+    image: saadsabahuddin/discord-clone-frontend:latest
     ports:
       - 5173:80
 
