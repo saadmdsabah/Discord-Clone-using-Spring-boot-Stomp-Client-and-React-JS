@@ -31,7 +31,6 @@ The application is built on a modern, decoupled architecture designed for real-t
 
 ---
 
-
 ## ⚙️ Application Workflow
 
 The following diagrams illustrate the core operational flows of the application.
@@ -59,6 +58,25 @@ Once connected, a user sends a message through the **WebSocket Client**. The mes
 <img width="1339" height="242" alt="Screenshot 2025-10-21 140035" src="https://github.com/user-attachments/assets/d32668ec-b0f9-4fe0-853e-5f6af208bc60" />
 
 During logout, the client-side action clears the user's session data from the **Redux Store** and removes the persisted state. Simultaneously, it sends a command to disconnect from the **WebSocket Server**, gracefully terminating the real-time communication channel.
+
+---
+
+## ⚡ Caching Layer (Redis)
+
+To enhance performance and reduce database load, the application integrates **Redis** as a distributed caching layer. Frequently accessed data that doesn't change often is cached in-memory, leading to significantly faster API responses for repeat requests.
+
+The caching logic is implemented in the Spring Boot backend using Spring's Cache Abstraction. When data is modified (e.g., a user joins a new room or an invitation is accepted), the relevant caches are automatically **evicted** (cleared) to prevent stale data and ensure consistency across the application.
+
+The following data is cached:
+
+| Cache Name            | Cached Data         | Description                                | Relevant API Endpoints                         |
+| :-------------------- | :------------------ | :----------------------------------------- | :------------------------------------------- |
+| `joinedRooms`         | List of rooms       | A user's list of joined chat rooms.        | `GET /api/v1/room/joined/{userName}`         |
+| `createdRooms`        | List of rooms       | A user's list of created chat rooms.       | `GET /api/v1/room/created/{userName}`        |
+| `invitationsBySender` | List of invitations | A user's pending sent invitations.         | `GET /api/v1/invitation/sent/{userName}`     |
+| `invitationsByReceiver`| List of invitations | A user's pending received invitations.     | `GET /api/v1/invitation/received/{userName}` |
+| `checkIfEntryPossible`| Boolean             | Verifies if a user is a member of a room.  | `GET /api/v1/room/is-joined/{roomId}/{userName}`|
+| `roomCreator`         | String (username)   | The creator of a specific room.            | `GET /api/v1/room/creator/{roomId}`          |
 
 ---
 
@@ -153,6 +171,7 @@ For more detailed information about the frontend or backend implementation, plea
 ## 📜 License
 
 This project is licensed under the MIT License. See the LICENSE file for more details.
+
 
 
 
