@@ -27,6 +27,37 @@ The application is designed with a decoupled frontend and backend architecture:
 
 ---
 
+
+## ⚙️ Application Workflow
+
+The following diagrams illustrate the core operational flows of the application.
+
+## User Authentication & Session Management
+
+<img width="1402" height="804" alt="Screenshot 2025-10-21 135510" src="https://github.com/user-attachments/assets/bbe6c706-1dd0-4de5-86fa-096d6bdbf9e3" />
+
+The authentication process is initiated when a user submits their credentials. The **Spring Boot** backend validates these against the **MongoDB** database. Upon success, a **JWT** is generated and returned to the client. The **React** frontend then persists the token and user data in the **Redux Store** and establishes a WebSocket connection for real-time updates.
+
+## Group Management & Join Requests
+
+<img width="1237" height="755" alt="Screenshot 2025-10-21 140217" src="https://github.com/user-attachments/assets/52df9c0d-0404-44c3-944a-f93f954239f1" />
+
+Users can create public or private groups. Joining a public group is instantaneous, with the backend directly adding the user. For private groups, a join request is sent to the backend, which then notifies the group owner in real-time. The owner's decision (accept/reject) is processed by the backend, updating the request status and notifying the original user of the outcome via WebSocket.
+
+## Real-Time Messaging
+
+<img width="1797" height="551" alt="Screenshot 2025-10-21 140334" src="https://github.com/user-attachments/assets/45a12f35-cca4-41e6-a06c-7b2f89566a9f" />
+
+Once connected, a user sends a message through the **WebSocket Client**. The message is transmitted to the **Spring Boot** backend via its STOMP endpoint. The backend first persists the message in **MongoDB** for chat history and then broadcasts it to all members subscribed to that specific group's topic, ensuring instantaneous delivery.
+
+## User Logout
+
+<img width="1339" height="242" alt="Screenshot 2025-10-21 140035" src="https://github.com/user-attachments/assets/d32668ec-b0f9-4fe0-853e-5f6af208bc60" />
+
+During logout, the client-side action clears the user's session data from the **Redux Store** and removes the persisted state. Simultaneously, it sends a command to disconnect from the **WebSocket Server**, gracefully terminating the real-time communication channel.
+
+---
+
 ## 📂 Project Structure
 
 This repository acts as a parent project that orchestrates the backend and frontend using Docker. The actual source code for the frontend and backend services resides in separate Git submodules.
@@ -104,5 +135,6 @@ For more detailed information about the frontend or backend implementation, plea
 ## 📜 License
 
 This project is licensed under the MIT License. See the LICENSE file for more details.
+
 
 
