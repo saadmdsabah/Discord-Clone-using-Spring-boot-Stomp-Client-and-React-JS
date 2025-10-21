@@ -1,0 +1,88 @@
+# Discord Clone 🚀
+
+A real-time, full-stack chat application inspired by Discord. This project leverages a powerful combination of Spring Boot for the backend, React JS for the frontend, and WebSockets for seamless, bidirectional communication. The entire application is containerized using Docker for easy setup and deployment.
+
+<img width="1388" height="426" alt="image" src="https://github.com/user-attachments/assets/c81d0553-4a6b-495b-807b-6c818b761626" />
+
+## 🏛️ Architecture Overview
+
+The application is designed with a decoupled frontend and backend architecture:
+
+* **Frontend**: A responsive user interface built with **React JS**. It is served statically using an **Nginx** web server.
+* **Backend**: A robust API built with **Spring Boot**. It handles business logic, user authentication, and message persistence.
+* **Real-time Communication**: **STOMP over WebSocket** is used to enable real-time messaging between the clients and the server.
+* **Database**: **MongoDB** is used as the NoSQL database to store messages, user data.
+* **Containerization**: The entire stack (Frontend, Backend, Database) is orchestrated using **Docker Compose**, ensuring a consistent development and production environment.
+
+---
+
+## 💻 Tech Stack
+
+| Area      | Technology                                                                                                                                                                             |
+| :-------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Backend** | ![Java](https://img.shields.io/badge/Java-21-blue) ![Spring](https://img.shields.io/badge/Spring_Boot-3.x-brightgreen) ![WebSocket](https://img.shields.io/badge/WebSocket-STOMP-orange) |
+| **Frontend**| ![React](https://img.shields.io/badge/React-18-blue) ![Vite](https://img.shields.io/badge/Vite-JS-yellow) ![StompJS](https://img.shields.io/badge/Stomp.js-client-red)                    |
+| **Database**| ![MongoDB](https://img.shields.io/badge/MongoDB-blue)                                                                                                                                  |
+| **DevOps** | ![Docker](https://img.shields.io/badge/Docker-blue) ![Nginx](https://img.shields.io/badge/Nginx-green)                                                                                 |
+
+---
+
+## 📂 Project Structure
+
+This repository acts as a parent project that orchestrates the backend and frontend using Docker. The actual source code for the frontend and backend services resides in separate Git submodules.
+
+* `chat-application-backend/`: The Spring Boot backend service.
+* `chat-application-frontend/`: The React JS frontend application.
+* `docker-compose.yml`: The Docker Compose file to build and run the entire application stack.
+
+---
+
+## 🚀 Getting Started
+
+You can get the entire application running on your local machine with just a few commands, thanks to Docker.
+
+### Prerequisites
+
+* [Git](https://git-scm.com/)
+* [Docker](https://www.docker.com/products/docker-desktop/)
+* [Docker Compose](https://docs.docker.com/compose/install/)
+
+### Installation & Launch
+
+1.  **Clone the repository with its submodules:**
+    ```bash
+    git clone --recurse-submodules [https://github.com/saadmdsabah/Discord-Clone-using-Spring-boot-Stomp-Client-and-React-JS.git](https://github.com/saadmdsabah/Discord-Clone-using-Spring-boot-Stomp-Client-and-React-JS.git)
+    ```
+
+2.  **Navigate into the project directory:**
+    ```bash
+    cd Discord-Clone-using-Spring-boot-Stomp-Client-and-React-JS
+    ```
+
+3.  **Build and run the application using Docker Compose:**
+    ```bash
+    docker-compose up --build
+    ```
+    This command will:
+    * Pull the required base images (Mongo, Nginx).
+    * Build the custom Docker images for the Spring Boot backend and React frontend.
+    * Create and start containers for all services.
+    * Establish a network for the containers to communicate with each other.
+
+4.  **Access the application:**
+    Once the containers are up and running, open your web browser and navigate to:
+    **[http://localhost:5173](http://localhost:5173)**
+
+---
+
+## Submodule Details
+
+For more detailed information about the frontend or backend implementation, please visit their respective repositories.
+
+  * Backend Repository: **[saadmdsabah/chat-application-backend](https://github.com/saadmdsabah/chat-application-backend/tree/281bd5ea6ce9bb99b2dcd4e8344642e3bc453b68)**
+
+  * Frontend Repository: **[saadmdsabah/chat-application-frontend](https://github.com/saadmdsabah/chat-application-frontend/tree/47bbe350c7a3f3db73b68dea057fdb28f53f7f3f)**
+
+## 📜 License
+
+This project is licensed under the MIT License. See the LICENSE file for more details.
