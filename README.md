@@ -58,6 +58,20 @@ During logout, the client-side action clears the user's session data from the **
 
 ---
 
+## 🔌 WebSocket API Endpoints
+
+The application uses STOMP over WebSocket for real-time communication. Clients can send messages to the destinations listed below to perform actions, and they should subscribe to the broadcast topics to receive real-time updates.
+
+| Endpoint | Description | Payload | Broadcast Topic(s) |
+| :--- | :--- | :--- | :--- |
+| `/sendMessage/{roomId}` | Sends a chat message to a specific room. The returned message is broadcasted to all members. | `MessageDto` | `/topic/rooms/{roomId}` |
+| `/createRoom/{roomId}` | Creates a new public or private chat room. | `CreateRoomDto` | `/topic/rooms/{userName}` (Notifies the creator to join the new room) |
+| `/addRoom/{userName}/{roomId}` | Adds a user to an existing public room. | None | `/topic/rooms/{userName}` (Notifies the user to join the new room) |
+| `/createInvitation` | Sends an invitation to a user to join a private room. | `CreateInvitationDto` | `/topic/sentInvitations/{sender}` <br> `/topic/receivedInvitations/{receiver}` |
+| `/updateStatusOfInvitation` | Updates an invitation's status to `ACCEPTED` or `REJECTED`. | `UpdateInvitationStatusDto` | **If Accepted:** <br> `/topic/remove/sentInvitations/{sender}` <br> `/topic/rooms/{sender}` <br><br> **If Rejected:** <br> `/topic/remove/sentInvitations/{sender}` |
+
+---
+
 ## 📂 Project Structure
 
 This repository acts as a parent project that orchestrates the backend and frontend using Docker. The actual source code for the frontend and backend services resides in separate Git submodules.
@@ -135,6 +149,7 @@ For more detailed information about the frontend or backend implementation, plea
 ## 📜 License
 
 This project is licensed under the MIT License. See the LICENSE file for more details.
+
 
 
 
