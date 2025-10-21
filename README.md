@@ -6,24 +6,28 @@ A real-time, full-stack chat application inspired by Discord. This project lever
 
 ## 🏛️ Architecture Overview
 
-The application is designed with a decoupled frontend and backend architecture:
+The application is built on a modern, decoupled architecture designed for real-time performance and scalability. Each component is containerized to ensure a consistent and portable environment.
 
-* **Frontend**: A responsive user interface built with **React JS**. It is served statically using an **Nginx** web server.
-* **Backend**: A robust API built with **Spring Boot**. It handles business logic, user authentication, and message persistence.
-* **Real-time Communication**: **STOMP over WebSocket** is used to enable real-time messaging between the clients and the server.
-* **Database**: **MongoDB** is used as the NoSQL database to store messages, user data.
-* **Containerization**: The entire stack (Frontend, Backend, Database) is orchestrated using **Docker Compose**, ensuring a consistent development and production environment.
+* **Frontend**: A dynamic user interface built with **React** and bundled by **Vite**. Global state is managed efficiently by **Redux Toolkit**, with user sessions seamlessly maintained across reloads using **Redux Persist**. The responsive design is crafted with **Tailwind CSS**, and the final static build is served by an **Nginx** web server.
+
+* **Backend**: A robust and secure RESTful API powered by **Spring Boot**. It handles all business logic, while **Spring Security** protects the endpoints and manages user authentication and authorization using **JWT** (JSON Web Tokens).
+
+* **Real-time Communication**: Instant, bidirectional messaging is powered by **STOMP over WebSocket**. The Spring backend provides the message broker, and the React frontend connects using **STOMP.js**. This enables live chat and delivers instant UI updates and notifications via **React Hot Toast**.
+
+* **Database**: **MongoDB** database acts as the primary data store, persisting all user information, group details, and message history.
+
+* **Containerization**: The entire ecosystem—frontend, backend, and database—is orchestrated by **Docker Compose**. This approach guarantees a simple, one-command setup and a consistent environment from development to production.
 
 ---
 
 ## 💻 Tech Stack
 
-| Area      | Technology                                                                                                                                                                             |
-| :-------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Backend** | ![Java](https://img.shields.io/badge/Java-21-blue) ![Spring](https://img.shields.io/badge/Spring_Boot-3.x-brightgreen) ![WebSocket](https://img.shields.io/badge/WebSocket-STOMP-orange) |
-| **Frontend**| ![React](https://img.shields.io/badge/React-18-blue) ![Vite](https://img.shields.io/badge/Vite-JS-yellow) ![StompJS](https://img.shields.io/badge/Stomp.js-client-red)                    |
-| **Database**| ![MongoDB](https://img.shields.io/badge/MongoDB-blue)                                                                                                                                  |
-| **DevOps** | ![Docker](https://img.shields.io/badge/Docker-blue) ![Nginx](https://img.shields.io/badge/Nginx-green)                                                                                 |
+| Area | Technology |
+| :--- | :--- |
+| **Backend** | ![Java](https://img.shields.io/badge/Java-21-blue) ![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.x-brightgreen) ![WebSocket](https://img.shields.io/badge/WebSocket-STOMP-orange) ![JWT](https://img.shields.io/badge/JWT-Authentication-black) |
+| **Frontend**| ![React](https://img.shields.io/badge/React-18-blue) ![Vite](https://img.shields.io/badge/Vite-JS-yellow) ![Redux](https://img.shields.io/badge/Redux-Toolkit-764ABC) ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC) ![StompJS](https://img.shields.io/badge/Stomp.js-client-red) ![Hot Toast](https://img.shields.io/badge/React_Hot_Toast-FF4154) |
+| **Database**| ![MongoDB](https://img.shields.io/badge/MongoDB-blue) |
+| **DevOps** | ![Docker](https://img.shields.io/badge/Docker-blue) ![Nginx](https://img.shields.io/badge/Nginx-green) |
 
 ---
 
@@ -142,13 +146,14 @@ Once the containers are running (using either method), open your web browser and
 
 For more detailed information about the frontend or backend implementation, please visit their respective repositories.
 
-  * Backend Repository: **[saadmdsabah/chat-application-backend](https://github.com/saadmdsabah/chat-application-backend/tree/281bd5ea6ce9bb99b2dcd4e8344642e3bc453b68)**
+  * Backend Repository: **[saadmdsabah/chat-application-backend](https://github.com/saadmdsabah/chat-application-backend/tree/a6dc5b7f7631b29113003c9eb6a659a1896b0bad)**
 
   * Frontend Repository: **[saadmdsabah/chat-application-frontend](https://github.com/saadmdsabah/chat-application-frontend/tree/47bbe350c7a3f3db73b68dea057fdb28f53f7f3f)**
 
 ## 📜 License
 
 This project is licensed under the MIT License. See the LICENSE file for more details.
+
 
 
 
