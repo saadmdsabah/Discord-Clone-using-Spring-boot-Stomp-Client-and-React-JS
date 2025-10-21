@@ -2,7 +2,7 @@
 
 A real-time, full-stack chat application inspired by Discord. This project leverages a powerful combination of Spring Boot for the backend, React JS for the frontend, and WebSockets for seamless, bidirectional communication. The entire application is containerized using Docker for easy setup and deployment.
 
-<img width="1388" height="426" alt="image" src="https://github.com/user-attachments/assets/c81d0553-4a6b-495b-807b-6c818b761626" />
+<img width="1401" height="412" alt="image" src="https://github.com/user-attachments/assets/5dd27a47-f7c4-4bde-91ba-fc1c3ca9a932" />
 
 ## 🏛️ Architecture Overview
 
@@ -104,4 +104,5 @@ For more detailed information about the frontend or backend implementation, plea
 ## 📜 License
 
 This project is licensed under the MIT License. See the LICENSE file for more details.
+
 
