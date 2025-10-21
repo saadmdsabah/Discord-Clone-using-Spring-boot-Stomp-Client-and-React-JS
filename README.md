@@ -46,12 +46,11 @@ You can get the entire application running on your local machine with just a few
 * [Git](https://git-scm.com/)
 * [Docker](https://www.docker.com/products/docker-desktop/)
 * [Docker Compose](https://docs.docker.com/compose/install/)
-
-### Installation & Launch
+### Method 1: Build from Source
 
 1.  **Clone the repository with its submodules:**
     ```bash
-    git clone --recurse-submodules [https://github.com/saadmdsabah/Discord-Clone-using-Spring-boot-Stomp-Client-and-React-JS.git](https://github.com/saadmdsabah/Discord-Clone-using-Spring-boot-Stomp-Client-and-React-JS.git)
+    git clone --recurse-submodules https://github.com/saadmdsabah/Discord-Clone-using-Spring-boot-Stomp-Client-and-React-JS.git
     ```
 
 2.  **Navigate into the project directory:**
@@ -63,15 +62,34 @@ You can get the entire application running on your local machine with just a few
     ```bash
     docker-compose up --build
     ```
-    This command will:
-    * Pull the required base images (Mongo, Nginx).
-    * Build the custom Docker images for the Spring Boot backend and React frontend.
-    * Create and start containers for all services.
-    * Establish a network for the containers to communicate with each other.
+    This will build the custom Docker images from the source code and then start all the services.
 
-4.  **Access the application:**
-    Once the containers are up and running, open your web browser and navigate to:
-    **[http://localhost:5173](http://localhost:5173)**
+### Method 2: Use Pre-built Images (Faster)
+
+If you don't need to build the images from the source code, you can pull them directly from Docker Hub.
+
+1.  **Pull the latest pre-built images:**
+    ```bash
+    docker pull saadsabahuddin/discord-clone-backend:latest
+    docker pull saadsabahuddin/discord-clone-frontend:latest
+    ```
+
+2.  **Clone the repository (submodules are not needed):**
+    ```bash
+    git clone [https://github.com/saadmdsabah/Discord-Clone-using-Spring-boot-Stomp-Client-and-React-JS.git](https://github.com/saadmdsabah/Discord-Clone-using-Spring-boot-Stomp-Client-and-React-JS.git)
+    cd Discord-Clone-using-Spring-boot-Stomp-Client-and-React-JS
+    ```
+
+3.  **Start the application:**
+    ```bash
+    docker-compose up
+    ```
+    This will use the images you pulled instead of building them locally.
+
+### Access the Application
+
+Once the containers are running (using either method), open your web browser and navigate to:
+**[http://localhost:5173](http://localhost:5173)**
 
 ---
 
@@ -86,3 +104,4 @@ For more detailed information about the frontend or backend implementation, plea
 ## 📜 License
 
 This project is licensed under the MIT License. See the LICENSE file for more details.
+
