@@ -1,6 +1,6 @@
 # Discord Clone 🚀
 
-A real-time, full-stack chat application inspired by Discord. This project leverages a powerful combination of Spring Boot for the backend, React JS for the frontend, and WebSockets for seamless, bidirectional communication. The entire application is containerized using Docker for easy setup and deployment.
+A real-time, full-stack chat application inspired by Discord. This project leverages a powerful combination of Spring Boot for the backend, React with TypeScript for the frontend, and WebSockets for seamless, bidirectional communication. The entire application is containerized using Docker for easy setup and deployment.
 
 <img width="1401" height="412" alt="image" src="https://github.com/user-attachments/assets/5dd27a47-f7c4-4bde-91ba-fc1c3ca9a932" />
 
@@ -8,7 +8,7 @@ A real-time, full-stack chat application inspired by Discord. This project lever
 
 The application is built on a modern, decoupled architecture designed for real-time performance and scalability. Each component is containerized to ensure a consistent and portable environment.
 
-* **Frontend**: A dynamic user interface built with **React** and bundled by **Vite**. Global state is managed efficiently by **Redux Toolkit**, with user sessions seamlessly maintained across reloads using **Redux Persist**. The responsive design is crafted with **Tailwind CSS**, and the final static build is served by an **Nginx** web server.
+* **Frontend**: A dynamic, type-safe user interface built with **React** and **TypeScript**, and bundled by **Vite**. Global state is managed efficiently by **Redux Toolkit**, with user sessions seamlessly maintained across reloads using **Redux Persist**. The responsive design is crafted with **Tailwind CSS**, and the final static build is served by an **Nginx** web server.
 
 * **Backend**: A robust and secure RESTful API powered by **Spring Boot**. It handles all business logic, while **Spring Security** protects the endpoints and manages user authentication and authorization using **JWT** (JSON Web Tokens).
 
@@ -22,12 +22,12 @@ The application is built on a modern, decoupled architecture designed for real-t
 
 ## 💻 Tech Stack
 
-| Area | Technology |
-| :--- | :--- |
-| **Backend** | ![Java](https://img.shields.io/badge/Java-21-blue) ![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.x-brightgreen) ![WebSocket](https://img.shields.io/badge/WebSocket-STOMP-orange) ![JWT](https://img.shields.io/badge/JWT-Authentication-black) |
-| **Frontend**| ![React](https://img.shields.io/badge/React-18-blue) ![Vite](https://img.shields.io/badge/Vite-JS-yellow) ![Redux](https://img.shields.io/badge/Redux-Toolkit-764ABC) ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC) ![StompJS](https://img.shields.io/badge/Stomp.js-client-red) ![Hot Toast](https://img.shields.io/badge/React_Hot_Toast-FF4154) |
-| **Database**| ![MongoDB](https://img.shields.io/badge/MongoDB-blue) |
-| **DevOps** | ![Docker](https://img.shields.io/badge/Docker-blue) ![Nginx](https://img.shields.io/badge/Nginx-green) |
+| Area      | Technology                                                                                                                                                                                                                                                                                       |
+| :-------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Backend** | ![Java](https://img.shields.io/badge/Java-21-blue) ![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.x-brightgreen) ![WebSocket](https://img.shields.io/badge/WebSocket-STOMP-orange) ![JWT](https://img.shields.io/badge/JWT-Authentication-black)                                          |
+| **Frontend**| ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6) ![React](https://img.shields.io/badge/React-18-blue) ![Vite](https://img.shields.io/badge/Vite-JS-yellow) ![Redux](https://img.shields.io/badge/Redux-Toolkit-764ABC) ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC) ![StompJS](https://img.shields.io/badge/Stomp.js-client-red) ![Hot Toast](https://img.shields.io/badge/React_Hot_Toast-FF4154) |
+| **Database**| ![MongoDB](https://img.shields.io/badge/MongoDB-blue)                                                                                                                                                                                                                                            |
+| **DevOps** | ![Docker](https://img.shields.io/badge/Docker-blue) ![Nginx](https://img.shields.io/badge/Nginx-green)                                                                                                                                                                                             |
 
 ---
 
@@ -35,25 +35,25 @@ The application is built on a modern, decoupled architecture designed for real-t
 
 The following diagrams illustrate the core operational flows of the application.
 
-## User Authentication & Session Management
+### User Authentication & Session Management
 
 <img width="1402" height="804" alt="Screenshot 2025-10-21 135510" src="https://github.com/user-attachments/assets/bbe6c706-1dd0-4de5-86fa-096d6bdbf9e3" />
 
 The authentication process is initiated when a user submits their credentials. The **Spring Boot** backend validates these against the **MongoDB** database. Upon success, a **JWT** is generated and returned to the client. The **React** frontend then persists the token and user data in the **Redux Store** and establishes a WebSocket connection for real-time updates.
 
-## Group Management & Join Requests
+### Group Management & Join Requests
 
 <img width="1237" height="755" alt="Screenshot 2025-10-21 140217" src="https://github.com/user-attachments/assets/52df9c0d-0404-44c3-944a-f93f954239f1" />
 
 Users can create public or private groups. Joining a public group is instantaneous, with the backend directly adding the user. For private groups, a join request is sent to the backend, which then notifies the group owner in real-time. The owner's decision (accept/reject) is processed by the backend, updating the request status and notifying the original user of the outcome via WebSocket.
 
-## Real-Time Messaging
+### Real-Time Messaging
 
 <img width="1797" height="551" alt="Screenshot 2025-10-21 140334" src="https://github.com/user-attachments/assets/45a12f35-cca4-41e6-a06c-7b2f89566a9f" />
 
 Once connected, a user sends a message through the **WebSocket Client**. The message is transmitted to the **Spring Boot** backend via its STOMP endpoint. The backend first persists the message in **MongoDB** for chat history and then broadcasts it to all members subscribed to that specific group's topic, ensuring instantaneous delivery.
 
-## User Logout
+### User Logout
 
 <img width="1339" height="242" alt="Screenshot 2025-10-21 140035" src="https://github.com/user-attachments/assets/d32668ec-b0f9-4fe0-853e-5f6af208bc60" />
 
@@ -69,14 +69,14 @@ The caching logic is implemented in the Spring Boot backend using Spring's Cache
 
 The following data is cached:
 
-| Cache Name            | Cached Data         | Description                                | Relevant API Endpoints                         |
-| :-------------------- | :------------------ | :----------------------------------------- | :------------------------------------------- |
-| `joinedRooms`         | List of rooms       | A user's list of joined chat rooms.        | `GET /api/v1/room/joined/{userName}`         |
-| `createdRooms`        | List of rooms       | A user's list of created chat rooms.       | `GET /api/v1/room/created/{userName}`        |
-| `invitationsBySender` | List of invitations | A user's pending sent invitations.         | `GET /api/v1/invitation/sent/{userName}`     |
-| `invitationsByReceiver`| List of invitations | A user's pending received invitations.     | `GET /api/v1/invitation/received/{userName}` |
-| `checkIfEntryPossible`| Boolean             | Verifies if a user is a member of a room.  | `GET /api/v1/room/is-joined/{roomId}/{userName}`|
-| `roomCreator`         | String (username)   | The creator of a specific room.            | `GET /api/v1/room/creator/{roomId}`          |
+| Cache Name              | Cached Data           | Description                                  | Relevant API Endpoints                               |
+| :---------------------- | :-------------------- | :------------------------------------------- | :--------------------------------------------------- |
+| `joinedRooms`           | List of rooms         | A user's list of joined chat rooms.          | `GET /api/v1/room/joined/{userName}`                 |
+| `createdRooms`          | List of rooms         | A user's list of created chat rooms.         | `GET /api/v1/room/created/{userName}`                |
+| `invitationsBySender`   | List of invitations   | A user's pending sent invitations.           | `GET /api/v1/invitation/sent/{userName}`             |
+| `invitationsByReceiver` | List of invitations   | A user's pending received invitations.       | `GET /api/v1/invitation/received/{userName}`         |
+| `checkIfEntryPossible`  | Boolean               | Verifies if a user is a member of a room.    | `GET /api/v1/room/is-joined/{roomId}/{userName}`     |
+| `roomCreator`           | String (username)     | The creator of a specific room.              | `GET /api/v1/room/creator/{roomId}`                  |
 
 ---
 
@@ -84,13 +84,13 @@ The following data is cached:
 
 The application uses STOMP over WebSocket for real-time communication. Clients can send messages to the destinations listed below to perform actions, and they should subscribe to the broadcast topics to receive real-time updates.
 
-| Endpoint | Description | Payload | Broadcast Topic(s) |
-| :--- | :--- | :--- | :--- |
-| `/sendMessage/{roomId}` | Sends a chat message to a specific room. The returned message is broadcasted to all members. | `MessageDto` | `/topic/rooms/{roomId}` |
-| `/createRoom/{roomId}` | Creates a new public or private chat room. | `CreateRoomDto` | `/topic/rooms/{userName}` (Notifies the creator to join the new room) |
-| `/addRoom/{userName}/{roomId}` | Adds a user to an existing public room. | None | `/topic/rooms/{userName}` (Notifies the user to join the new room) |
-| `/createInvitation` | Sends an invitation to a user to join a private room. | `CreateInvitationDto` | `/topic/sentInvitations/{sender}` <br> `/topic/receivedInvitations/{receiver}` |
-| `/updateStatusOfInvitation` | Updates an invitation's status to `ACCEPTED` or `REJECTED`. | `UpdateInvitationStatusDto` | **If Accepted:** <br> `/topic/remove/sentInvitations/{sender}` <br> `/topic/rooms/{sender}` <br><br> **If Rejected:** <br> `/topic/remove/sentInvitations/{sender}` |
+| Endpoint                    | Description                                                               | Payload                   | Broadcast Topic(s)                                                                                                                                                                 |
+| :-------------------------- | :------------------------------------------------------------------------ | :------------------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `/sendMessage/{roomId}`     | Sends a chat message to a specific room. The returned message is broadcasted to all members. | `MessageDto`              | `/topic/rooms/{roomId}`                                                                                                                                            |
+| `/createRoom/{roomId}`      | Creates a new public or private chat room.                                | `CreateRoomDto`           | `/topic/rooms/{userName}` (Notifies the creator to join the new room)                                                                                                              |
+| `/addRoom/{userName}/{roomId}` | Adds a user to an existing public room.                                  | None                      | `/topic/rooms/{userName}` (Notifies the user to join the new room)                                                                                                                 |
+| `/createInvitation`         | Sends an invitation to a user to join a private room.                     | `CreateInvitationDto`     | `/topic/sentInvitations/{sender}` <br> `/topic/receivedInvitations/{receiver}`                                                                                                    |
+| `/updateStatusOfInvitation` | Updates an invitation's status to `ACCEPTED` or `REJECTED`.               | `UpdateInvitationStatusDto` | **If Accepted:** <br> `/topic/remove/sentInvitations/{sender}` <br> `/topic/rooms/{sender}` <br><br> **If Rejected:** <br> `/topic/remove/sentInvitations/{sender}`                   |
 
 ---
 
@@ -99,7 +99,7 @@ The application uses STOMP over WebSocket for real-time communication. Clients c
 This repository acts as a parent project that orchestrates the backend and frontend using Docker. The actual source code for the frontend and backend services resides in separate Git submodules.
 
 * `chat-application-backend/`: The Spring Boot backend service.
-* `chat-application-frontend/`: The React JS frontend application.
+* `chat-application-frontend/`: The React and TypeScript frontend application.
 * `docker-compose.yml`: The Docker Compose file to build and run the entire application stack.
 
 ---
@@ -113,11 +113,12 @@ You can get the entire application running on your local machine with just a few
 * [Git](https://git-scm.com/)
 * [Docker](https://www.docker.com/products/docker-desktop/)
 * [Docker Compose](https://docs.docker.com/compose/install/)
+
 ### Method 1: Build from Source
 
 1.  **Clone the repository with its submodules:**
     ```bash
-    git clone --recurse-submodules https://github.com/saadmdsabah/Discord-Clone-using-Spring-boot-Stomp-Client-and-React-JS.git
+    git clone --recurse-submodules [https://github.com/saadmdsabah/Discord-Clone-using-Spring-boot-Stomp-Client-and-React-JS.git](https://github.com/saadmdsabah/Discord-Clone-using-Spring-boot-Stomp-Client-and-React-JS.git)
     ```
 
 2.  **Navigate into the project directory:**
@@ -164,16 +165,10 @@ Once the containers are running (using either method), open your web browser and
 
 For more detailed information about the frontend or backend implementation, please visit their respective repositories.
 
-  * Backend Repository: **[saadmdsabah/chat-application-backend](https://github.com/saadmdsabah/chat-application-backend/tree/a6dc5b7f7631b29113003c9eb6a659a1896b0bad)**
+* Backend Repository: **[saadmdsabah/chat-application-backend](https://github.com/saadmdsabah/chat-application-backend/tree/a6dc5b7f7631b29113003c9eb6a659a1896b0bad)**
 
-  * Frontend Repository: **[saadmdsabah/chat-application-frontend](https://github.com/saadmdsabah/chat-application-frontend/tree/47bbe350c7a3f3db73b68dea057fdb28f53f7f3f)**
+* Frontend Repository: **[saadmdsabah/chat-application-frontend](https://github.com/saadmdsabah/chat-application-frontend/tree/47bbe350c7a3f3db73b68dea057fdb28f53f7f3f)**
 
 ## 📜 License
 
 This project is licensed under the MIT License. See the LICENSE file for more details.
-
-
-
-
-
-
